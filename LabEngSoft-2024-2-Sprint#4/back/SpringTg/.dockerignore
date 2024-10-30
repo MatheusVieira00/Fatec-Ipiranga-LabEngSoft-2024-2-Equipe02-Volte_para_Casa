@@ -1,0 +1,15 @@
+# Ignorar diretórios e arquivos de build
+target/
+.mvn/
+.vscode/
+
+# Ignorar arquivos temporários e de sistema
+*.log
+*.tmp
+*.swp
+*.class
+*.iml
+
+# Ignorar repositórios locais e arquivos de configuração locais
+.git/
+HELP.md

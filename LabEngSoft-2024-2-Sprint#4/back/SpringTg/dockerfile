@@ -1,0 +1,26 @@
+# Etapa 1: Usar uma imagem do Maven para compilar o projeto
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+
+# Copiar o arquivo pom.xml e baixar as dependências
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copiar o restante do código-fonte
+COPY src ./src
+
+# Compilar o projeto e gerar o arquivo JAR
+RUN mvn clean package -DskipTests
+
+# Etapa 2: Construir a imagem final a partir do JAR gerado
+FROM eclipse-temurin:17-jdk-jammy
+WORKDIR /app
+
+# Copiar o JAR gerado da etapa de build
+COPY --from=build /app/target/*.jar app.jar
+
+# Expor a porta 8080 (Spring Boot usa 8080 por padrão)
+EXPOSE 8080
+
+# Definir o comando para rodar o JAR
+ENTRYPOINT ["java", "-jar", "app.jar"]
