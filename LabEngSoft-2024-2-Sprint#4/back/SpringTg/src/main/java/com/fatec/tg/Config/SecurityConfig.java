@@ -25,6 +25,9 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
     private UserService userService;
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("+++++++++++++++++++++++++");
+        System.out.println("TESTE AQUI");
+        System.out.println("+++++++++++++++++++++++++");
         auth
             .userDetailsService(userService)
             .passwordEncoder(passwordEncoder());
@@ -49,6 +52,7 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
+
 
     
 }

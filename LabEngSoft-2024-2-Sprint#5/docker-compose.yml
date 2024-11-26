@@ -1,0 +1,115 @@
+
+# version: '3.8'
+
+# services:
+#   # Serviço para o Backend (Spring Boot)
+#   backend:
+#     image: volteparacasa-backend:v2 # Nome da imagem do backend
+#     container_name: backendv4
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/volteparacasa01?useSSL=false&allowPublicKeyRetrieval=true # URL corrigida
+#       SPRING_DATASOURCE_USERNAME: uservolteparacasa
+#       SPRING_DATASOURCE_PASSWORD: Volte2024@
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#       SPRING_JPA_SHOW_SQL: true
+#     ports:
+#       - "8083:8080"  # Expõe a porta 8080
+#     depends_on:
+#       - mysql  # Garante que o MySQL esteja rodando antes do backend
+#     networks:
+#       - app-network
+#     command: ["./wait-for-it.sh", "mysql:3306"]
+
+#   # Serviço para o Frontend (Angular)
+#   frontend:
+#     image: volteparacasa-frontend:v2 # Nome da imagem do frontend
+#     container_name: frontendv4
+#     ports:
+#       - "85:80"  # Expõe a porta 80
+#     depends_on:
+#       - backend  # Garante que o backend esteja rodando antes do frontend
+#     networks:
+#       - app-network
+
+#   # Serviço para o MySQL
+#   mysql:
+#     image: mysql:8.0 # Imagem oficial do MySQL 8.0
+#     container_name: mysqlv4
+#     environment:
+#       MYSQL_ROOT_PASSWORD: rootpassword # Senha do root do MySQL
+#       MYSQL_DATABASE: volteparacasa01 # Nome do banco de dados
+#       MYSQL_USER: uservolteparacasa # Nome de usuário
+#       MYSQL_PASSWORD: Volte2024@ # Senha do usuário
+#     volumes:
+#       - mysql-data:/var/lib/mysql # Volume para persistir os dados
+#     ports:
+#       - "3305:3306"  # Expõe a porta 3306 do MySQL para a porta 3308 na máquina host
+#     networks:
+#       - app-network
+
+# # Rede compartilhada para os containers se comunicarem
+# networks:
+#   app-network:
+
+# # Volume para persistir dados do MySQL
+# volumes:
+#   mysql-data:
+#     driver: local
+
+
+version: '3.8'
+
+services:
+  # Serviço para o Backend (Spring Boot)
+  backend:
+    image: volteparacasa-backend:v3 # Nome da imagem do backend
+    container_name: backendv5
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/volteparacasa01?useSSL=false&allowPublicKeyRetrieval=true # URL corrigida
+      SPRING_DATASOURCE_USERNAME: uservolteparacasa
+      SPRING_DATASOURCE_PASSWORD: Volte2024@
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+    ports:
+      - "8080:8080"  # Expõe a porta 8080
+    depends_on:
+      - mysql  # Garante que o MySQL esteja rodando antes do backend
+    networks:
+      - app-network
+    command: ["./wait-for-it.sh", "mysql:3306"]
+
+  # Serviço para o Frontend (Angular)
+  frontend:
+    image: volteparacasa-frontend:v3 # Nome da imagem do frontend
+    container_name: frontendv5
+    ports:
+      - "85:80"  # Expõe a porta 80
+    depends_on:
+      - backend  # Garante que o backend esteja rodando antes do frontend
+    networks:
+      - app-network
+
+  # Serviço para o MySQL
+  mysql:
+    image: mysql:8.0 # Imagem oficial do MySQL 8.0
+    container_name: mysqlv6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword # Senha do root do MySQL
+      MYSQL_DATABASE: volteparacasa01 # Nome do banco de dados
+      MYSQL_USER: uservolteparacasa # Nome de usuário
+      MYSQL_PASSWORD: Volte2024@ # Senha do usuário
+    volumes:
+      - mysql-data:/var/lib/mysql # Volume para persistir os dados
+    ports:
+      - "3305:3306"  # Expõe a porta 3306 do MySQL para a porta 3308 na máquina host
+    networks:
+      - app-network
+
+# Rede compartilhada para os containers se comunicarem
+networks:
+  app-network:
+
+# Volume para persistir dados do MySQL
+volumes:
+  mysql-data:
+    driver: local

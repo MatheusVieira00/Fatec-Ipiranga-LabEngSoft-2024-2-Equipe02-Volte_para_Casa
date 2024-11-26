@@ -17,10 +17,16 @@ public class UserService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    System.out.println("PASSOU AMEM");
+    System.out.println("email: " + email);
+    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         RepresentanteEntity representante = repository.
                                                         findByEmail(email)
                                                         .orElseThrow(()-> new UsernameNotFoundException("Email nao encontrado") );
-        return User
+        
+
+                                                        return User
                 .builder()
                 .username(representante.getEmail())
                 .password(representante.getSenha())
